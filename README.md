@@ -20,12 +20,12 @@
 
 3. Flame Graph and perf
 
+   For detailed usage : [here](https://zhuanlan.zhihu.com/p/402188023)
+
    ```shell
    $ git clone https://github.com/brendangregg/FlameGraph
    $ sudo apt install linux-tools-common
    ```
-
-​		For detailed usage : [here](https://zhuanlan.zhihu.com/p/402188023)
 
 4. Install IO library
 
@@ -38,5 +38,22 @@
    $ sudo cp src/liburing.so.2.2 /usr/lib/x86_64-linux-gnu/liburing.so.2
    ```
 
-### Report
+### Method
 
+We focus on the **latency** and **IOPS** (I/O Operations Per Second) performance of I/O library which may be two main dimensions that people are concerned about. And all tests are done with flag **O_DIRECT** in order to avoid cache interference except small read/write operations imitating **zero-delay** cases.
+
+1. Latency
+
+   **BCC** is used to write eBPF tracing program 
+
+
+
+### Reference
+
+1. [io_uring manpage](https://unixism.net/loti/index.html#)
+
+2. [Blog of io_uring](https://thenewstack.io/how-io_uring-and-ebpf-will-revolutionize-programming-in-linux)
+
+3. [Another blog of io_uring](https://zhuanlan.zhihu.com/p/380726590)
+
+4. [bcc repo](https://github.com/iovisor/bcc/blob/master/docs/tutorial_bcc_python_developer.md)
