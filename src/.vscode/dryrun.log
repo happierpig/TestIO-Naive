@@ -1,0 +1,5 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/dreamer/Desktop/try/bench'
+clang -o test -I/usr/share/liburing/src/include -L/usr/lib/x86_64-linux-gnu -luring -lrt -laio test.c
+make: Leaving directory '/home/dreamer/Desktop/try/bench'
+ 
