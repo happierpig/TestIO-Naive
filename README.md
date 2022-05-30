@@ -44,7 +44,37 @@ We focus on the **latency** and **IOPS** (I/O Operations Per Second) performance
 
 1. Latency
 
-   **BCC** is used to write eBPF tracing program 
+   **BCC** is used to write eBPF tracing program to detect the running time of specific kernel functions, user functions and code segments. Namely **uprobe** and **uretprobe** are used to catch I/O library functions. **USDT** are defined to trace specific code segments. For example : (code in `src/bpfCode.c` and `src/test.py`)
+
+   ```python
+   b.attach_uprobe(name="uring", sym="io_uring_submit", fn_name="bpf_iouring_submit_in")
+   b.attach_uretprobe(name="uring", sym="io_uring_submit", fn_name="bpf_iouring_submit_out")
+   ```
+
+2. Throughput(IOPS)
+
+   **Fio** is used to perform pressure testing on different I/O library. We control the parameters to implement the comparison experiment. The detailed instruction is in `res/bench.md`. The sample is below : 
+
+   ```shell
+   dreamer@ubuntu:~/Desktop/try/bench$ fio -thread -size=1G -bs=4k -direct=1 -rw=randwrite -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=io_uring --iodepth=128
+   ```
+
+3. Call Stack Analysis
+
+   We use **perf** and **FlameGraph** to generate the flame graph of the procedure. 
+
+   ```shell
+   $ sudo perf record -F 99 -p `pid of test program` -g -- sleep 30
+   $ sudo perf script -i perf.data &> perf.unfold
+   $ sudo ./FlameGraph/stackcollapse-perf.pl perf.unfold &> perf.folded
+   $ sudo ./FlameGraph/flamegraph.pl perf.folded > perf.svg
+   ```
+
+   And the sample graph is like :
+
+   ![](./res/nativeaio.svg)
+
+### Analysis
 
 
 
