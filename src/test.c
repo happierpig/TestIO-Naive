@@ -33,6 +33,7 @@ void test_iouring(){
         struct io_uring_cqe * cqe;
         struct io_uring_cqe ** completes = malloc(sizeof(struct io_uring_cqe *) * BatchSize);
         ret = io_uring_queue_init(BatchSize * 2, &ring, IORING_SETUP_SQPOLL);
+        // ret = io_uring_queue_init(BatchSize * 2, &ring, IORING_SETUP_IOPOLL);
         if(ret != 0){
             printf("Fail to init uring\n");
             exception(strerror(-ret));
@@ -233,11 +234,11 @@ int main(){
     init();
     test_nativeio();
     sleep(1);
-    test_iouring();
+    // test_iouring();
     sleep(1);
-    test_blockio();
+    // test_blockio();
     sleep(1);
-    test_glibcio();
+    // test_glibcio();
     printf("Press Ctrl+c to print result\n");
     printf("[BufferSize : %d, BatchSize : %d, Iterations : %d]\n",BufferSize, BatchSize, IterationSize);
     return 0;

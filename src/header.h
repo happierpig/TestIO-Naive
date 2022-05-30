@@ -14,5 +14,5 @@
 
 #define BufferSize 4096
 #define BlockSize 512
-#define BatchSize 16
-#define IterationSize 32
+#define BatchSize 32
+#define IterationSize 1024
