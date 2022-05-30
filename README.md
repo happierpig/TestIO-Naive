@@ -25,6 +25,8 @@
    $ sudo apt install linux-tools-common
    ```
 
+​		For detailed usage : [here](https://zhuanlan.zhihu.com/p/402188023)
+
 4. Install IO library
 
    ``` shell
