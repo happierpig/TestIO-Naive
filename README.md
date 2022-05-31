@@ -82,6 +82,8 @@ We focus on the **latency** and **IOPS** (I/O Operations Per Second) performance
 
 #### Throughput
 
+> Note: We use IOPS to denote throughput because they differ by only one factor.
+
 Assuming the bottom block device has a constant and robust read/write speed $v$, then the maximal realistic work over a period of time $t$ is $w_{nax} = v\times t$. However, $w_{max}$ can be accessed only under ideal circumstances. The reality is device dominated by driver, which is part of linux kernel. For generalization, concurrency and security, abstraction layer like VFS exists in kernel, which induces extra cost for maintaining such a system. So the real work over $t$ is $w=v\times(t-t')=w_{max}-c$. To improve the throughput of the device is equivalent to **decrease the cost** $c$. 
 
 For sync I/O, we can simply construct the cost model as a **linear** $O(n)$ one because each sync I/O operation need two syscalls (words in detail, whether the interrupt-driven I/O or busy-waiting I/O both has cost).
@@ -110,7 +112,7 @@ We can find that the experiment fits well with the theoretical analysis when the
 
 #### Call Stack
 
-// todo :
+We can see that the trend is to leave some of the work to modules in the kernel and to handle the cost of information exchange. Like io_uring works like a courier, you leave the item at the door, io_uring picks up the operation and puts it back. From this point of view io_uring is an almost perfect design. Future work may appear at reducing the useless data copy between kernel and user.
 
 ### Reference
 

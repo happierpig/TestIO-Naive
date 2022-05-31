@@ -34,12 +34,14 @@ total:       8564.658704        -0.000000     28627.489258      3130.614583
 fio -thread -size=1G -bs=1k -direct=1 -rw=randread -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=io_uring --iodepth=128 --sqthread_poll 1
 
 iops: min=13234, max=18676, avg=15744.11, stdev=563.71
+cpu: usr=93.85%, sys=1.23%, ctx=2588
 ```
 
 ```
 fio -thread -size=1G -bs=1k -direct=1 -rw=randread -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=io_uring --iodepth=128 --sqthread_poll 0
 
 iops: min=11664, max=13234, avg=12980.54, stdev=188.90
+cpu: usr=4.08%, sys=95.81%, ctx=2388
 ```
 
 ```
@@ -58,17 +60,20 @@ iops: min= 7278, max=39504, avg=23161.97, stdev=9767.98
 fio -thread -size=1G -bs=1k -direct=1 -rw=randread -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=libaio --iodepth=128
 
 iops: min= 9753, max=12605, avg=12116.24, stdev=481.37
+cpu: usr=4.51%, sys=95.44%, ctx=2344
 ```
 
 ```
 fio -thread -size=1G -bs=1k -direct=1 -rw=randread -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=posixaio --iodepth=128
 
 iops: min= 2716, max= 4514, avg=3616.70, stdev=322.52
+cpu: usr=1.50%, sys=0.16%, ctx=120093
 ```
 
 ```
 fio -thread -size=1G -bs=1k -direct=1 -rw=randread -name=test -group_reporting -filename=./io.tmp -runtime 600 --ioengine=sync --iodepth=128
 
 iops: min= 2165, max= 4172, avg=3115.22, stdev=279.05
+cpu: usr=3.51%, sys=34.36%, ctx=1046140
 ```
 
